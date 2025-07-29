@@ -1,14 +1,15 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import Header from '../components/Header'
+import React, { useContext } from "react";
+import Header from "../components/Header";
+import { AppContext } from "../../context/userContext";
 
 const Home = () => {
+  const { setShowLogin } = useContext(AppContext);
+  setShowLogin(true);
   return (
     <div>
-      <Navbar/>
-      <Header/>
+      <Header />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
