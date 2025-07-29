@@ -8,7 +8,7 @@ export const getCourseByTopic = async (req, res) => {
     const course = await Course.findOne({ topic });
 
     if (!course)
-      return res.json({ success: true, message: "Course not found" });
+      return res.json({ success: false, message: "Course not found" });
 
     res.json(course);
   } catch (err) {
@@ -27,6 +27,13 @@ export const generateCourse = async (req, res) => {
 
   try {
     const userMessage = req.body;
+    // const userInput = userMessage.inputPrompt
+    // const foundCourse = await Course.findOne({ userInput });
+
+    // if(foundCourse){
+    //   console.log("Already exits")
+    //   return res.json({success:false,message: "Course already exists"})
+    // }
 
     const response = await ai.models.generateContent({
       model: "gemini-1.5-flash",

@@ -3,7 +3,7 @@ import cross_icon from './cross_icon.svg';
 
 export const assets = {
   profile_icon,
-  cross_icon
+  cross_icon,
 };
 
 export const data = [

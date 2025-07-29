@@ -1,5 +1,6 @@
 import express from "express";
 import { getCourseByTopic, generateCourse, getAllCourses } from "../controllers/courseController.js";
+import userAuth from "../middleware/auth.js";
 
 const courseRouter = express.Router();
 

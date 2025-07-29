@@ -2,16 +2,20 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/userContext";
+import { toast } from 'react-toastify';
 
 const Chat = () => {
   const [input, setInput] = useState("");
   const [days, setDays] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
 
   const { setReceivedData } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { data } = await axios.post(
         "http://localhost:3000/api/courses/generate",
@@ -24,17 +28,22 @@ const Chat = () => {
       setInput("");
       setDays(0);
       navigate("/courses");
-    } catch (err) {
-      console.error("API Error:", err);
+    } catch (error) {
+      console.error("API Error:", error);
+      toast.error(error.response?.data?.message || error.message);
     }
+    finally {
+    setLoading(false); 
+  }
   };
   return (
     <div className="flex h-[80vh] m-auto justify-center items-center">
+      {loading ? <div className="loader pb-30"></div> : 
       <div className="pb-30">
         <p className="text-5xl text-white/80 changing">
           Start mastering something new today.
         </p>
-      </div>
+      </div>}
 
       <form action="" className="fixed bottom-8 flex gap-5 z-10">
         <input

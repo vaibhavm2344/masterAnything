@@ -5,13 +5,27 @@ import axios from "axios";
 const Course = () => {
   const { topic } = useParams();
   const [courseData, setCourseData] = useState(null);
+  
+  const total = ()=>{
+    let sum = 0;
+    for(let i=0;i<courseData.days.length;i++){
+      sum += courseData.days[i].subtopics.length
+    }
+    return sum
+  }
 
   useEffect(() => {
-    const fetchCourse = async () => {
-      const res = await axios.get(`http://localhost:3000/api/courses/${topic}`);
-      setCourseData(res.data);
-    };
-    fetchCourse();
+    try{
+      const fetchCourse = async () => {
+        const res = await axios.get(`http://localhost:3000/api/courses/${topic}`);
+        setCourseData(res.data);
+      };
+      fetchCourse();
+    }
+    catch(error){
+      console.log(error.message)
+      toast.error(error.message)
+    }
   }, [topic]);
 
   return (
@@ -24,7 +38,7 @@ const Course = () => {
           <div>
             <p className="text-xl text-white">Progress</p>
             <p className="text-lg">
-              3 <span className="text-sm">/15</span>{" "}
+              3 <span className="text-sm">/{total()}</span>{" "}
               <span className="text-sm">completed</span>
             </p>
           </div>

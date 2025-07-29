@@ -4,7 +4,15 @@ import { AppContext } from "../../context/userContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { token } = useContext(AppContext);
+  const { user, setShowLogin } = useContext(AppContext);
+  const onClickHandler = ()=>{
+    if(user){
+      navigate('/chat')
+    }
+    else{
+      setShowLogin(true)
+    }
+  }
   return (
     <div className="flex flex-col justify-center items-center text-center my-20 ">
       <h1 className="text-[#948979] text-4xl  mx-auto mt-10 text-center sm:text-4xl myfont">
@@ -29,7 +37,7 @@ const Header = () => {
         </ul>
       </div>
       <button
-        onClick={() => (token ? navigate("/chat") : navigate("/login"))}
+        onClick={onClickHandler}
         className="text-[#201503] mt-15 rounded-full bg-[#DFD0B8] font-semibold px-8 py-3 text-xl cursor-pointer hover:scale-105 transition-all duration-500"
       >
         Get Started
