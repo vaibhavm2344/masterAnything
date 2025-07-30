@@ -26,7 +26,8 @@ const userAuth = async (req, res, next) => {
 
     }
     catch(error){
-        res.json({success:false, message:error.message})
+        console.error('Auth middleware error:', error);
+        res.status(401).json({success:false, message:error.message})
     }
 }
 

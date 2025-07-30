@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/userContext";
@@ -25,7 +25,7 @@ const Navbar = () => {
 
           <NavLink to={"/courses"}>
             <p
-              onClick={() => getAllData()}
+              // onClick={() => getAllData()}
               className="pt-1 border-2 border-zinc-400 rounded-full p-2 px-5 cursor-pointer text-white/90 hover:bg-amber-500 hover:text-black"
             >
               Courses
@@ -34,7 +34,6 @@ const Navbar = () => {
 
           <NavLink to={"/chat"}>
             <p
-              onClick={() => getAllData()}
               className="pt-1 border-2 border-zinc-400 rounded-full p-2 px-5 cursor-pointer text-white/90 hover:bg-amber-500 hover:text-black"
             >
               Chat

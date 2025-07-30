@@ -1,5 +1,19 @@
 import Course from "../models/courseModel.js";
 import { GoogleGenAI } from "@google/genai";
+import userModel from "../models/userModel.js";
+// import { ObjectId } from "mongodb"
+
+const getUserId = async(req,res)=>{
+  const {userId} = req.body;
+  if (!userId) {
+    return res.json({ success: false, message: "User ID not found" });
+  }
+  const user = await userModel.findById(userId).select('-password');
+   if(!user){
+      return res.json({ success: false, message: "User not found" }); 
+    }
+  console.log(user.courses)
+}
 
 
 export const getCourseByTopic = async (req, res) => {
@@ -88,6 +102,14 @@ export const generateCourse = async (req, res) => {
     const newCourse = new Course({ topic, days });
     await newCourse.save();
 
+    // get user
+    const {userId} = req.body;
+    const user = await userModel.findById(userId)
+    user.courses.push(newCourse._id)
+    await user.save()
+
+    // console.log(newCourse._id)
+
     res.json({
       success: true,
       message: "Course saved successfully",
@@ -105,9 +127,12 @@ export const generateCourse = async (req, res) => {
 
 export const getAllCourses = async (req, res) => {
   try {
-    const allCourses = await Course.find({});
 
-    const dataToSend = allCourses.map(course => course.topic);
+    // find user
+    const {userId} = req.body;
+    const user = await userModel.findById(userId).populate("courses");
+   
+    const dataToSend = user.courses.map(course => course.topic);
 
     res.json({ success: true, data : dataToSend });
   } catch (error) {

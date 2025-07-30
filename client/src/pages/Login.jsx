@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,8 @@ const Login = () => {
           }
         }
       } catch (error) {
-        toast.error(error.message)
+        console.error('Login/Register error:', error);
+        toast.error(error.response?.data?.message || error.message || 'An error occurred')
       }
     }
 

@@ -11,6 +11,7 @@ const AppContextProvider = (props)=>{
     const [showLogin, setShowLogin] = useState(false);
     const [allCourses, setAllCourse] = useState([])
     const [user,setUser] = useState(null);
+    
     const navigate = useNavigate()
 
     // Verify token and restore user data on app startup
@@ -48,11 +49,10 @@ const AppContextProvider = (props)=>{
         try{
             const response = await axios.get('http://localhost:3000/api/courses')
             setAllCourse(response.data.data)
-
         }
         catch(error){
-            console.log(error.message)
-            toast.error(error.message)
+            console.error('Error fetching courses:', error);
+            toast.error(error.response?.data?.message || error.message || 'Failed to fetch courses')
         }
     }
 
@@ -73,6 +73,7 @@ const AppContextProvider = (props)=>{
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
         }
+        
     }, [user]);
 
     const [selectedContent , setSelectedContent] = useState(null);
@@ -89,6 +90,7 @@ const AppContextProvider = (props)=>{
         allCourses,
         user,setUser,
         logOut,
+       
     }
 
     return (

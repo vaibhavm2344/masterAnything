@@ -5,8 +5,7 @@ import connectDB from "./config/mongodb.js";
 import courseRouter from "./routes/courseRoute.js";
 import userRouter from "./routes/userRoute.js";
 
-
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -14,11 +13,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-await connectDB();
+// Connect to database
+try {
+  await connectDB();
+} catch (error) {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+}
 
-app.use('/api/courses', courseRouter)
-app.use('/api/user',userRouter)
+app.use('/api/courses', courseRouter);
+app.use('/api/user', userRouter);
 
 app.listen(PORT, () => {
-  console.log("Server is Running...");
+  console.log(`Server is Running on port ${PORT}...`);
 });
