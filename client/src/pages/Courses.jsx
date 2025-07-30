@@ -5,14 +5,12 @@ import { useState } from "react";
 import axios from "axios";
 
 const Courses = () => {
-  const { allCourses,getAllData } = useContext(AppContext);
-  // const [allCourses, setAllCourse] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
+  const { allCourses,getAllData,user } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     getAllData();
-  }, []);
+  }, [user]);
 
   return allCourses && (
     <div>

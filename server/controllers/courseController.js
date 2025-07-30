@@ -128,10 +128,8 @@ export const generateCourse = async (req, res) => {
 export const getAllCourses = async (req, res) => {
   try {
 
-    // find user
     const {userId} = req.body;
     const user = await userModel.findById(userId).populate("courses");
-   
     const dataToSend = user.courses.map(course => course.topic);
 
     res.json({ success: true, data : dataToSend });
