@@ -1,17 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify'
 import axios from "axios";
 
 const Login = () => {
   const [state, setState] = useState("Login");
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
   const { setShowLogin,setToken, setUser } = useContext(AppContext);
 
   const onSubmitHandler = async (e)=>{
@@ -140,7 +137,6 @@ const Login = () => {
           className="absolute top-5 right-5 cursor-pointer"
           onClick={() =>
             setShowLogin(false)
-            // navigate("/");
           }
         />
       </form>

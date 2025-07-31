@@ -5,7 +5,7 @@ import userAuth from "../middleware/auth.js";
 const courseRouter = express.Router();
 
 
-courseRouter.get("/:topic",userAuth, getCourseByTopic);       // GET /api/courses/HTML
+courseRouter.get("/:id",userAuth, getCourseByTopic);       // GET /api/courses/HTML
 courseRouter.post("/generate",userAuth, generateCourse);       // POST /api/courses/generate
 courseRouter.get("/",userAuth, getAllCourses);                   // GET /api/courses/
 

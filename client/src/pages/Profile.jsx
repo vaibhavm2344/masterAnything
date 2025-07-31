@@ -3,6 +3,8 @@ import { AppContext } from '../../context/userContext';
 
 const Profile = () => {
   const { user, logOut } = useContext(AppContext);
+  const courses = JSON.parse(localStorage.getItem('alldata'));
+  console.log(courses)
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -19,6 +21,16 @@ const Profile = () => {
               <p className="text-gray-300">
                 <span className="font-medium">Email:</span> {user.email || 'Not provided'}
               </p>
+            </div>
+            <div>
+              <p className='text-white text-xl'>Courses Enrolled :</p>
+              <ul>
+              {
+                courses.map((item, index)=>(
+                  <li className='text-white pl-5' key={index}><span className='pr-2'>{index +1}.</span>{item.topic}</li>
+                ))
+              }
+              </ul>
             </div>
             
             <button

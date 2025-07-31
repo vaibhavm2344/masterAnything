@@ -11,7 +11,6 @@ const AppContextProvider = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [allCourses, setAllCourse] = useState([]);
   const [user, setUser] = useState(null);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,9 +49,10 @@ const AppContextProvider = (props) => {
   const getAllData = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/courses");
-      console.log(response);
-      setAllCourse(response.data.data);
-    } catch (error) {
+      setAllCourse(response.data.dataToSend);
+      localStorage.setItem('alldata',JSON.stringify(response.data.dataToSend))
+    } 
+    catch (error) {
       console.error("Error fetching courses:", error);
       toast.error(
         error.response?.data?.message ||
@@ -65,6 +65,7 @@ const AppContextProvider = (props) => {
   const logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("alldata");
     setToken("");
     setUser(null);
     delete axios.defaults.headers.common["token"];

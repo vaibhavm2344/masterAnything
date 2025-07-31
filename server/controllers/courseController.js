@@ -1,6 +1,7 @@
 import Course from "../models/courseModel.js";
 import { GoogleGenAI } from "@google/genai";
 import userModel from "../models/userModel.js";
+import mongoose from "mongoose";
 // import { ObjectId } from "mongodb"
 
 const getUserId = async(req,res)=>{
@@ -18,12 +19,15 @@ const getUserId = async(req,res)=>{
 
 export const getCourseByTopic = async (req, res) => {
   try {
-    const {topic} = req.params;
-    const course = await Course.findOne({ topic });
+    const {id} = req.params;
+    // const newId = mongoose.Types.ObjectId(id)
+    // console.log(id)
+    const course = await Course.findById(id);
+    // console.log(course)
 
     if (!course)
       return res.json({ success: false, message: "Course not found" });
-
+    // console.log(course)
     res.json(course);
   } catch (err) {
     res.json({
@@ -130,9 +134,11 @@ export const getAllCourses = async (req, res) => {
 
     const {userId} = req.body;
     const user = await userModel.findById(userId).populate("courses");
-    const dataToSend = user.courses.map(course => course.topic);
+    const dataToSend = []
+    user.courses.map(course => dataToSend.push({topic :course.topic,id :course._id}));
+    // console.log(dataToSend)
 
-    res.json({ success: true, data : dataToSend });
+    res.json({ success: true, dataToSend });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

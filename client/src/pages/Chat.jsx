@@ -15,6 +15,10 @@ const Chat = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(days > 30 || days <= 0 || input.length == 0){
+      toast.error("Enter valid input")
+      return;
+    }
     setLoading(true);
     try {
       const { data } = await axios.post(
@@ -57,8 +61,6 @@ const Chat = () => {
           onChange={(e) => setDays(e.target.value)}
           value={days}
           type="number"
-          name=""
-          id=""
           placeholder="Number of days"
           className="p-5 rounded-full w-50 bg-zinc-700 text-xl placeholder-color"
         />

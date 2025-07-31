@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/userContext";
 
 const Navbar = () => {
-  const { user, getAllData, logOut, setShowLogin } = useContext(AppContext);
+  const { user, logOut, setShowLogin } = useContext(AppContext);
   const navigate = useNavigate();
   
 

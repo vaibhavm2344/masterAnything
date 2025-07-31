@@ -19,7 +19,7 @@ const courseSchema = new mongoose.Schema({
   topic: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   days: {
     type: [subtopicSchema],
@@ -27,6 +27,6 @@ const courseSchema = new mongoose.Schema({
   },
 });
 
-const courseModel = mongoose.model("Course", courseSchema);
+const courseModel = mongoose.model.Course || mongoose.model("Course", courseSchema);
 
 export default courseModel;

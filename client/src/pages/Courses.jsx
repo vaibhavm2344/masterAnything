@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { AppContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
 
 const Courses = () => {
   const { allCourses,getAllData,user } = useContext(AppContext);
@@ -22,10 +20,10 @@ const Courses = () => {
           return (
             <div
               key={index}
-              onClick={() => navigate(`/courses/${item}`)}
+              onClick={() => navigate(`/courses/${item.id}`)}
               className="bg-zinc-600 p-5 rounded-xl flex justify-center cursor-pointer hover:scale-105 transition-all duration-400 "
             >
-              <h1 className="text-2xl text-white">{item}</h1>
+              <h1 className="text-2xl text-white">{item.topic}</h1>
             </div>
           );
         })}

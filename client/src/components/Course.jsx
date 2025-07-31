@@ -1,33 +1,37 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useContext } from "react";
+import { AppContext } from "../../context/userContext";
 
 const Course = () => {
-  const { topic } = useParams();
+  const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
-  
-  const total = ()=>{
-    let sum = 0;
-    for(let i=0;i<courseData.days.length;i++){
-      sum += courseData.days[i].subtopics.length
+  const {user} = useContext(AppContext)
+
+ const total = () => {
+    if (!courseData || !courseData.days) return 0;
+    return courseData.days.reduce((sum, day) => sum + day.subtopics.length, 0);
+  };
+
+  const fetchCourse = async () => {
+    try {
+      console.log(id)
+      if(id){
+        const res = await axios.get(`http://localhost:3000/api/courses/${id}`);
+        setCourseData(res.data);
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message);
     }
-    return sum
-  }
+  };
 
   useEffect(() => {
-    try{
-      const fetchCourse = async () => {
-        const res = await axios.get(`http://localhost:3000/api/courses/${topic}`);
-        setCourseData(res.data);
-      };
-      fetchCourse();
-    }
-    catch(error){
-      console.log(error.message)
-      toast.error(error.message)
-    }
-  }, [topic]);
+    fetchCourse()
+  }, [user,id]);
 
+  if(!courseData) return <p>Loading.....</p>
   return (
     courseData && (
       <div className="p-6 rounded-xl shadow-lg pt-0">
@@ -65,27 +69,28 @@ const Course = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto ">
-          {courseData.days.map((dayItem, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-lg p-5 transform transition-transform duration-300 hover:shadow-xl"
-            >
-              <h4 className="text-2xl font-bold text-blue-700 mb-2">
-                Day {dayItem.day}: {dayItem.mainTopic}
-              </h4>
-              <h3 className="text-lg font-semibold text-gray-700">
-                Subtopics:
-              </h3>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
-                {dayItem.subtopics.map((sub, i) => (
-                  <li key={i} className="flex items-center">
-                    <input type="checkbox" className="mr-2 text-blue-500" />
-                    <p>{sub}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {
+            courseData?.days?.map((dayItem, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-lg p-5 transform transition-transform duration-300 hover:shadow-xl"
+              >
+                <h4 className="text-2xl font-bold text-blue-700 mb-2">
+                  Day {dayItem.day}: {dayItem.mainTopic}
+                </h4>
+                <h3 className="text-lg font-semibold text-gray-700">
+                  Subtopics:
+                </h3>
+                <ul className="list-disc list-inside text-gray-600 space-y-2">
+                  {dayItem.subtopics.map((sub, i) => (
+                    <li key={i} className="flex items-center">
+                      <input type="checkbox" className="mr-2 text-blue-500" />
+                      <p>{sub}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
         </div>
       </div>
     )
