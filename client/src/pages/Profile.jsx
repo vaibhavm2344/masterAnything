@@ -25,7 +25,7 @@ const Profile = () => {
             <div>
               <p className='text-white text-xl'>Courses Enrolled :</p>
               <ul>
-              {
+              { courses &&
                 courses.map((item, index)=>(
                   <li className='text-white pl-5' key={index}><span className='pr-2'>{index +1}.</span>{item.topic}</li>
                 ))

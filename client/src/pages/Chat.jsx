@@ -11,7 +11,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
 
 
-  const { setReceivedData } = useContext(AppContext);
+  const { setReceivedData,backendUrl } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const Chat = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/courses/generate",
+        backendUrl+'/api/courses/generate',
         {
           inputPrompt: input,
           inputDays: days,

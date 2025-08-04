@@ -9,13 +9,13 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setShowLogin,setToken, setUser } = useContext(AppContext);
+  const { setShowLogin,setToken, setUser,backendUrl } = useContext(AppContext);
 
   const onSubmitHandler = async (e)=>{
       e.preventDefault();
       try {
         if(state === 'Login'){
-          const {data} = await axios.post(`http://localhost:3000/api/user/login`, {email,password})
+          const {data} = await axios.post(backendUrl+`/api/user/login`, {email,password})
           if(data.success){
             setToken(data.token)
             setUser(data.user)
@@ -27,7 +27,7 @@ const Login = () => {
           }
         }
         else{
-          const {data} = await axios.post('http://localhost:3000/api/user/register', {name,email,password})
+          const {data} = await axios.post(backendUrl+'/api/user/register', {name,email,password})
           if(data.success){
             setToken(data.token)
             setUser(data.user)

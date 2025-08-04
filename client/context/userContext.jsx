@@ -13,6 +13,8 @@ const AppContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
+
   useEffect(() => {
     const verifyToken = async () => {
       const storedToken = localStorage.getItem("token");
@@ -21,7 +23,7 @@ const AppContextProvider = (props) => {
           axios.defaults.headers.common["token"] = storedToken;
 
           const response = await axios.get(
-            "http://localhost:3000/api/user/verify"
+            backendUrl+'/api/user/verify'
           );
           if (response.data.success) {
             setToken(storedToken);
@@ -48,7 +50,7 @@ const AppContextProvider = (props) => {
 
   const getAllData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/courses");
+      const response = await axios.get(backendUrl + '/api/courses');
       setAllCourse(response.data.dataToSend);
       localStorage.setItem('alldata',JSON.stringify(response.data.dataToSend))
     } 
@@ -93,6 +95,7 @@ const AppContextProvider = (props) => {
     user,
     setUser,
     logOut,
+    backendUrl
   };
 
   return (

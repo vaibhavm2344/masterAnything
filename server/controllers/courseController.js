@@ -4,18 +4,6 @@ import userModel from "../models/userModel.js";
 import mongoose from "mongoose";
 // import { ObjectId } from "mongodb"
 
-const getUserId = async(req,res)=>{
-  const {userId} = req.body;
-  if (!userId) {
-    return res.json({ success: false, message: "User ID not found" });
-  }
-  const user = await userModel.findById(userId).select('-password');
-   if(!user){
-      return res.json({ success: false, message: "User not found" }); 
-    }
-  console.log(user.courses)
-}
-
 
 export const getCourseByTopic = async (req, res) => {
   try {
