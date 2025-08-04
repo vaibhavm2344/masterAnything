@@ -1,24 +1,28 @@
-MasterAnything – AI-Powered Learning Plan Generator
-MasterAnything is a full-stack MERN web application where users can generate personalized learning plans by simply entering a topic and number of days. Built with JWT authentication, the platform assigns and retrieves user-specific courses using an LLM-powered backend.
+# 🧠 MasterAnything – AI-Powered Learning Plan Generator
 
-🚀 Features
-🔐 Authentication – Secure login/register using JWT.
+MasterAnything is a full-stack MERN application that generates **personalized learning plans** using Gemini API. Users can input any topic and desired duration (in days), and the system creates a structured day-wise roadmap with learning content. Courses are securely stored and tied to individual user accounts.
 
-🧑‍🎓 AI-Based Course Planner – Generates daily learning schedules using OpenAI.
+---
 
-📦 User-Specific Courses – Courses are saved and retrieved per user.
+## 🚀 Features
 
-⚡ Fast UI – Built with React + Axios, protected routes, and local caching.
+- 🔐 **User Authentication** – Secure login & signup using JWT.
+- 🧑‍🎓 **AI-Powered Course Generation** – Generate day-wise study plans using Gemini.
+- 🗂️ **User-Specific Course Management** – Only see your own generated courses.
+- ⚡ **Modern Frontend UI** – Built with React, Tailwind, Axios & Router.
+- 💾 **Persistent Data** – Courses stored in MongoDB with Mongoose.
+- 🌐 **RESTful API** – Node.js + Express backend for secure data flow.
 
-💾 MongoDB Integration – Stores users and their courses.
+---
 
-📤 Scalable REST API – Express.js backend with token middleware for auth.
+## 🛠️ Tech Stack
 
-🛠️ Tech Stack
-Frontend: React, Tailwind CSS, Axios, React Router
+| Layer        | Tech Used                         |
+|--------------|-----------------------------------|
+| Frontend     | React, Tailwind CSS, Axios        |
+| Backend      | Node.js, Express.js               |
+| Database     | MongoDB with Mongoose             |
+| AI Engine    | Gemini API                        |
+| Auth         | JWT (JSON Web Tokens)             |
+| State Mgmt   | React Hooks, useContext API       |
 
-Backend: Node.js, Express.js, OpenAI API
-
-Database: MongoDB + Mongoose
-
-Authentication: JWT (JSON Web Token)
