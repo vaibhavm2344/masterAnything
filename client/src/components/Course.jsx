@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const Course = () => {
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
-  const {user} = useContext(AppContext)
+  const {user,backendUrl} = useContext(AppContext)
 
  const total = () => {
     if (!courseData || !courseData.days) return 0;
@@ -19,7 +19,7 @@ const Course = () => {
     try {
       console.log(id)
       if(id){
-        const res = await axios.get(VITE_BACKEND_URL+`/api/courses/${id}`);
+        const res = await axios.get(backendUrl+`/api/courses/${id}`);
         setCourseData(res.data);
       }
     } catch (error) {
