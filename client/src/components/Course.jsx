@@ -19,7 +19,7 @@ const Course = () => {
     try {
       console.log(id)
       if(id){
-        const res = await axios.get(`http://localhost:3000/api/courses/${id}`);
+        const res = await axios.get(VITE_BACKEND_URL+`/api/courses/${id}`);
         setCourseData(res.data);
       }
     } catch (error) {
