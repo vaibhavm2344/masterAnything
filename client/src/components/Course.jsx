@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import { AppContext } from "../../context/userContext";
+import { toast } from "react-toastify";
 
 const Course = () => {
   const { id } = useParams();
